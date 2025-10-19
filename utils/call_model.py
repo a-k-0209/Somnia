@@ -1,5 +1,4 @@
 from langchain_groq import ChatGroq
-from pydantic import SecretStr
 import os
 
 class CallModel():
@@ -12,5 +11,4 @@ class CallModel():
         self.llm = ChatGroq(
             model=model_name, 
             temperature=temperature,
-            api_key=SecretStr(api_key)
         )
