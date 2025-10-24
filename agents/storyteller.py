@@ -1,38 +1,24 @@
-from langchain_core.prompts import ChatPromptTemplate
+# 
 from utils.call_model import CallModel
+from langsmith import traceable
 
 class StoryGenerator:
     def __init__(self):
-        self.llm = CallModel().llm
-        with open("prompts/storyteller_prompt.txt") as f:
-            system_prompt = f.read()
-        self.prompt_template = ChatPromptTemplate.from_messages([
-            ("system", system_prompt),
-            ("human", "{initial_prompt}\n\nPrevious feedback (if any): {feedback}")
-        ])
+        self.llm = CallModel()
+        with open("prompts/storyteller_prompt.txt", "r", encoding="utf-8") as f:
+            self.system_prompt = f.read()
 
-    def generate(self, state):
-        chain = self.prompt_template | self.llm
-        result = chain.invoke({
-            "initial_prompt": state.initial_prompt,
-            "feedback": getattr(state, "feedback", "No feedback yet.")
-        })
-        state.story_generated = result.content
-        return state
-
-
-# class StoryGenerator:
-#     def __init__(self):
-#         self.llm = CallModel().llm
-#         with open("prompts/storyteller_prompt.txt") as f:
-#             system_prompt = f.read()
-#         self.prompt_template = ChatPromptTemplate.from_messages([
-#             ("system", system_prompt),
-#             ("human", "{initial_prompt}")
-#         ])
-
-#     def generate(self, state):
-#         chain = self.prompt_template | self.llm
-#         result = chain.invoke({"initial_prompt": state.initial_prompt})
-#         state.story_generated = result.content
-#         return state
+    @traceable
+    def generate(self, user_prompt: str) -> str:
+        """
+        Generate a story based on the user prompt.
+        """
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+        try:
+            story = self.llm.invoke(messages)
+        except Exception as e:
+            raise RuntimeError(f"Story generation failed: {e}")
+        return story

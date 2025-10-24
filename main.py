@@ -1,17 +1,46 @@
-from graph.workflow import build_graph, StoryState
+import streamlit as st
+from graph.workflow import run_story_workflow
 
-def main():
-    user_input = input("Enter your story idea: ")
+st.set_page_config(page_title="Somnia Chat", page_icon="🌙")
 
-    graph = build_graph()
-    state = StoryState(initial_prompt=user_input)
+st.title("🌙 Somnia Chat")
+st.write("Type a question or story prompt, and Somnia will reply with a bedtime story!")
 
-    result = graph.invoke(state)
 
-    print("\n=== Final Story ===\n")
-    print(result["story_generated"])
-    print("\n=== Final Evaluation ===\n")
-    print(result["evaluation"])
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+if "last_score" not in st.session_state:
+    st.session_state.last_score = 0
+if "last_iteration" not in st.session_state:
+    st.session_state.last_iteration = 0
 
-if __name__ == "__main__":
-    main()
+
+for msg in st.session_state.chat_history:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+
+user_input = st.chat_input("Your message here...")
+
+if user_input:
+    
+    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
+
+    story, feedback, score, iteration = run_story_workflow(user_input)
+    text_to_speech(story)
+
+    
+    st.session_state.chat_history.append({"role": "assistant", "content": story})
+    with st.chat_message("assistant"):
+        st.markdown(story)
+
+    print(score, iteration)
+
+# Display score + iteration in small font below chat
+# st.markdown(
+#     f"<p style='font-size:small;'>Score: {st.session_state.last_score} | Iterations: {st.session_state.last_iteration}</p>",
+#     unsafe_allow_html=True
+# )
+

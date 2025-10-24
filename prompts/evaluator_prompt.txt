@@ -3,7 +3,7 @@ Evaluate the story based on the following criteria. For each, give a rating from
 After all ratings, provide an Overall Score (average of all) and a short summary comment.
 
 Evaluation Criteria:
-    1. Age Appropriateness – Is the story suitable for 5–10 year olds? (No scary, violent, or mature content.)
+    1. Age Appropriateness – Is the story suitable for 5–10 year olds? (No scary, violent, or mature content. If the rating is below 8 then change the rating to 0, else let the rating be as it is)
     2. Creativity and Engagement – Is it imaginative, fun, and interesting to children?
     3. Clarity and Simplicity – Is it easy for a child to follow and understand?
     4. Story Structure – Does it have a clear beginning, middle, and end with a small problem and satisfying resolution?

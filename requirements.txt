@@ -3,4 +3,7 @@ langgraph>=0.2.40
 pydantic>=2.0.0
 streamlit>=1.28.0
 IPython>=8.0.0
-re
+openai
+elevenlabs>=1.8.2
+langchain-groq
+
