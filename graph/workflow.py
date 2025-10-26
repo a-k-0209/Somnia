@@ -6,8 +6,10 @@ from agents.evaluator import Evaluator
 from agents.analyzer import Analyzer
 import re
 from langsmith import traceable
-from agents.voice import voice_agent
+# from agents.voice import voice_agent
 
+import os
+print(os.getenv("LANGCHAIN_API_KEY"))
 
 
 # --------------------- State Schema --------------------- #
@@ -107,15 +109,15 @@ def memory_update_fn(state: State) -> State:
 
     return state
 
-@traceable
-def text_to_speech(state: State) -> State:
-    story_text = state.get("story_generated", "")
-    if story_text:
-        output = voice_agent.text_to_speech(story_text)
-        state["audio_path"] = output
-    else:
-        state["audio_path"] = ""
-    return state
+# @traceable
+# def text_to_speech(state: State) -> State:
+#     story_text = state.get("story_generated", "")
+#     if story_text:
+#         output = voice_agent.text_to_speech(story_text)
+#         state["audio_path"] = output
+#     else:
+#         state["audio_path"] = ""
+#     return state
 
 
 # --------------------- Workflow Graph --------------------- #
@@ -125,22 +127,23 @@ graph.add_node("story_gen", story_gen_fn)
 graph.add_node("evaluator", evaluator_fn)
 graph.add_node("decision", decision_fn)
 graph.add_node("memory_update", memory_update_fn)
-graph.add_node("voice", text_to_speech)
+# graph.add_node("voice", text_to_speech)
 
 
 graph.add_edge(START, "story_gen")
 graph.add_edge("story_gen", "evaluator")
 graph.add_edge("evaluator", "memory_update")
-graph.add_edge("memory_update", "voice")
+# graph.add_edge("memory_update", "voice")
 graph.add_conditional_edges(
     "memory_update",
     decision_fn,
     {
         "story_gen": "story_gen",
-        "end": "voice",
+        # "end": "voice",
+        "end": END
     },
 )
-graph.add_edge("voice", END)
+# graph.add_edge("voice", END)
 compiled_graph = graph.compile(checkpointer=checkpointer)
 
 

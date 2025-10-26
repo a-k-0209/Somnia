@@ -15,7 +15,7 @@ class Analyzer:
             "You must carefully detect the following:\n"
             "1. If the user is asking for a new story (e.g., 'I want a story about a cat'),\n"
             "   or to continue an existing story (e.g., 'add a dragon').\n"
-            "2. Extract the user's name if mentioned (e.g., 'Hi, I’m Ava').\n"
+            "2. Extract the user's name if mentioned.\n"
             "3. Detect unsafe, violent, scary, or adult content — words like kill, death, blood, murder, die, ghost, gun, fight, poison, or any similar idea.\n"
             "4. If such content is detected, set intent to 'unsafe_content' and include a calm, kind message in 'safe_message', like:\n"
             "   'I'm sorry, I can’t include that, but I can make something magical instead!'\n"

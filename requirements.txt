@@ -6,4 +6,4 @@ IPython>=8.0.0
 openai
 elevenlabs>=1.8.2
 langchain-groq
-
+fastapi
