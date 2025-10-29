@@ -19,11 +19,6 @@ Somnia is an intelligent storytelling agent that crafts personalized bedtime sto
 - **FastAPI** - RESTful API backend
 - **LangSmith** - Tracing and debugging
 
-## 🖼️ App Screenshot
-
-![Somnia Chat Interface](https://ibb.co/C5dZB2jF)
-![Somnia Chat Interface](https://ibb.co/FL7My4f4)
-
 ## 🔄 How It Works
 
 1. **User Input** → The child or parent enters a story idea or continuation prompt
