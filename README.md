@@ -103,8 +103,8 @@ Contributions are welcome! Here's how you can help:
 For questions, feedback, or collaboration opportunities:
 
 - **Email**: anikakarampuri04@gmail.com
-- **LinkedIn**: [Your Profile](https://www.linkedin.com/in/anika-karampuri-211023260/)
-- **GitHub**: [@yourusername](https://github.com/a-k-0209)
+- **LinkedIn**: [Profile](https://www.linkedin.com/in/anika-karampuri-211023260/)
+- **GitHub**: [git profile](https://github.com/a-k-0209)
 
 ## Acknowledgments
 
